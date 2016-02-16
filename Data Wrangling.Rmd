@@ -1,0 +1,43 @@
+---
+title: "Data Wrangling"
+author: "Alvaro Fuentes"
+date: "February 15, 2016"
+output: html_document
+---
+
+
+```{r}
+nba <- read.csv("data/NBA.csv", header = TRUE, stringsAsFactors = FALSE)
+library(dplyr)
+```
+
+Transforming into a table data frame
+
+```{r}
+nba <- tbl_df(nba)
+
+```
+
+
+How many times has each team gone to the playoffs?
+```{r}
+nba <- tbl_df(nba)
+
+select(nba, Team, Playoffs) %>% group_by(Team) %>%
+    summarise(times_in_playoffs = sum(Playoffs)) %>%
+    arrange(desc(times_in_playoffs))
+
+```
+
+For each season, which team had the largest difference in points?
+
+```{r}
+
+select(nba, SeasonEnd, Team, PTS, oppPTS) %>% 
+    mutate(difference = PTS - oppPTS) %>% 
+    group_by(SeasonEnd) %>% 
+    summarise(
+        Team = Team[which.max(difference)], 
+        LargestDiff = max(difference))
+
+```

@@ -34,7 +34,7 @@ get_team_data <- function(name_of_team){
     data_by_team[[name_of_team]]
 }
 
-#testing if it works, for a couple
+#testing if it works, for a couple of teams
 head(get_team_data("Bulls"))
 head(get_team_data("Hornets"))
 
